@@ -1,18 +1,38 @@
-# Build and Release Folders
-bin-debug/
-bin-release/
-[Oo]bj/
-[Bb]in/
+{car.price.toLocaleString('ru-RU')} ₽
+Купить / Тест-драйв
 
-# Other files and folders
-.settings/
-
-# Executables
-*.swf
-*.air
-*.ipa
-*.apk
-
-# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
-# should NOT be excluded as they contain compiler settings and other important
-# information for Eclipse / Flash Builder.
+`;
+catalogContainer.appendChild(card);
+});
+}
+// Сортировка по цене
+function sortSupercars() {
+const selectValue = document.getElementById('sort-select').value;
+let sorted = [...lambos];
+if (selectValue === 'low') {
+sorted.sort((a, b) => a.price - b.price);
+} else if (selectValue === 'high') {
+sorted.sort((a, b) => b.price - a.price);
+}
+displayCatalog(sorted);
+}
+// Логика модального окна
+function openModal(carName) {
+activeLambo = carName;
+document.getElementById('modal-title').innerText = Заявка на ${carName};
+document.getElementById('booking-modal').style.display = 'flex';
+}
+function closeModal() {
+document.getElementById('booking-modal').style.display = 'none';
+}
+function handleFormSubmit(event) {
+event.preventDefault();
+const name = document.getElementById('client-name').value;
+const phone = document.getElementById('client-phone').value;
+alert(Запрос успешно отправлен!\n\nАвтомобиль: ${activeLambo}\nКлиент: ${name}\nТелефон: ${phone}\n\nНаш премиум-менеджер свяжется с вами в ближайшее время.);
+closeModal();
+document.getElementById('client-name').value = '';
+document.getElementById('client-phone').value = '';
+}
+// Первоначальный запуск
+displayCatalog(lambos);
